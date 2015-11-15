@@ -7,8 +7,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\data\Pagination;
 use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
+use app\models\BookSearch;
 use app\models\BookForm;
 use app\models\Book;
 
@@ -17,63 +16,41 @@ class BookController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout'],
-                'rules' => [
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
+                    'delete' => ['post'],
                 ],
             ],
         ];
     }
 
-    public function actions()
+    /**
+     * Lists all Books models.
+     * @return mixed
+     */
+    public function actionIndex()
     {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
-        ];
-    }
-
-    public function actionIndex($message = 'No books have been added yet!')
-    {
-        $query = Book::find();
-
-        $pagination = new Pagination([
-            'defaultPageSize' => 5,
-            'totalCount' => $query->count(),
-        ]);
-
-        $books = $query->orderBy('name')
-            ->offset($pagination->offset)
-            ->limit($pagination->limit)
-            ->all();
-
+        $searchModel = new BookSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'message' => $message,
-            'books' => $books
+          'searchModel' => $searchModel,
+          'dataProvider' => $dataProvider,
         ]);
     }
 
-    public function actionView()
+    /**
+     * Displays a single Author model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionView($id)
     {
-        $model = new BookForm();
+        return $this->render('view', [
+          'model' => $this->findModel($id),
+        ]);
+/*        $model = new BookForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             // valid data received in $model
@@ -84,6 +61,70 @@ class BookController extends Controller
         } else {
             // either the page is initially displayed or there is some validation error
             return $this->render('view', ['model' => $model]);
+        }*/
+    }
+
+    /**
+     * Creates a new Book model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+        $model = new Book();
+        return $this->processSaveModel($model);
+    }
+
+    /**
+     * Updates an existing Book model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
+        return $this->processSaveModel($model);
+
+    }
+
+    /**
+     * Deletes an existing Book model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * Finds the Book model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Book the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = Book::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    protected function processSaveModel(Book $model)
+    {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('update', [
+              'model' => $model,
+            ]);
         }
     }
 }
