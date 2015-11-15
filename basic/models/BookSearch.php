@@ -12,6 +12,9 @@ use app\models\Book;
  */
 class BookSearch extends Book
 {
+
+    public $author_firstname;
+
     /**
      * @inheritdoc
      */
@@ -19,7 +22,7 @@ class BookSearch extends Book
     {
         return [
             [['author_id'], 'integer'],
-            [['name', 'date'], 'safe'],
+            [['name', 'date', 'author_firstname'], 'safe'],
         ];
     }
 
@@ -47,9 +50,30 @@ class BookSearch extends Book
             'query' => $query,
         ]);
 
+        /**
+         * Setup your sorting attributes
+         * Note: This is setup before the $this->load($params)
+         * statement below
+         */
+        $dataProvider->setSort([
+          'attributes' => [
+            'author_firstname' => [
+              'asc' => ['authors.firstname' => SORT_ASC],
+              'desc' => ['authors.firstname' => SORT_DESC],
+              'label' => 'Author First Name'
+            ]
+          ]
+        ]);
+
+
         $this->load($params);
 
         if (!$this->validate()) {
+            /**
+             * The following line will allow eager loading with country data
+             * to enable sorting by country on initial loading of the grid.
+             */
+            $query->joinWith(['author']);
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
@@ -65,6 +89,12 @@ class BookSearch extends Book
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'preview', $this->preview]);
+
+        // filter by country name
+        $query->joinWith(['author' => function ($q) {
+            $q->where('authors.firstname LIKE "%' . $this->author_firstname . '%"');
+        }]);
+
 
         return $dataProvider;
     }

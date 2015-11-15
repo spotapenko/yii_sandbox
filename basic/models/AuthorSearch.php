@@ -12,6 +12,8 @@ use app\models\Author;
  */
 class AuthorSearch extends Author
 {
+    public $fullname;
+
     /**
      * @inheritdoc
      */
@@ -19,7 +21,7 @@ class AuthorSearch extends Author
     {
         return [
             [['id'], 'integer'],
-            [['firstname', 'lastname'], 'safe'],
+            [[ 'firstname', 'lastname', 'fullname'], 'safe'],
         ];
     }
 
@@ -47,6 +49,24 @@ class AuthorSearch extends Author
             'query' => $query,
         ]);
 
+        /**
+         * Setup your sorting attributes
+         * Note: This is setup before the $this->load($params)
+         * statement below
+         */
+        $dataProvider->setSort([
+          'attributes' => [
+            'id',
+            'fullname' => [
+              'asc' => ['firstname' => SORT_ASC, 'lastname' => SORT_ASC],
+              'desc' => ['firstname' => SORT_DESC, 'lastname' => SORT_DESC],
+              'label' => 'Full Name',
+              'default' => SORT_ASC
+            ],
+            'author_id'
+          ]
+        ]);
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -61,6 +81,11 @@ class AuthorSearch extends Author
 
         $query->andFilterWhere(['like', 'firstname', $this->firstname])
             ->andFilterWhere(['like', 'lastname', $this->lastname]);
+
+        // filter by person full name
+        $query->andWhere('firstname LIKE "%' . $this->fullname . '%" ' .
+          'OR lastname LIKE "%' . $this->fullname . '%"'
+        );
 
         return $dataProvider;
     }

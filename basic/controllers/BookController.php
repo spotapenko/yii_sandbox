@@ -50,18 +50,6 @@ class BookController extends Controller
         return $this->render('view', [
           'model' => $this->findModel($id),
         ]);
-/*        $model = new BookForm();
-
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            // valid data received in $model
-
-            // do something meaningful here about $model ...
-
-            return $this->render('book-confirm', ['model' => $model]);
-        } else {
-            // either the page is initially displayed or there is some validation error
-            return $this->render('view', ['model' => $model]);
-        }*/
     }
 
     /**

@@ -44,7 +44,12 @@ class Author extends ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'firstname' => Yii::t('app', 'Firstname'),
             'lastname' => Yii::t('app', 'Lastname'),
+            'fullname' => Yii::t('app', 'Full Name')
         ];
+    }
+
+    public function getFullName() {
+        return $this->firstname . ' ' . $this->lastname;
     }
 
     /**
