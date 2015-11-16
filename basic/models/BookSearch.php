@@ -12,8 +12,7 @@ use app\models\Book;
  */
 class BookSearch extends Book
 {
-
-    public $author_firstname;
+    public $author_fullname;
 
     /**
      * @inheritdoc
@@ -21,8 +20,8 @@ class BookSearch extends Book
     public function rules()
     {
         return [
-            [['author_id'], 'integer'],
-            [['name', 'date', 'author_firstname'], 'safe'],
+          [['author_id'], 'integer'],
+          [['name', 'date', 'author_fullname'], 'safe'],
         ];
     }
 
@@ -47,7 +46,7 @@ class BookSearch extends Book
         $query = Book::find();
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+          'query' => $query,
         ]);
 
         /**
@@ -57,14 +56,18 @@ class BookSearch extends Book
          */
         $dataProvider->setSort([
           'attributes' => [
-            'author_firstname' => [
-              'asc' => ['authors.firstname' => SORT_ASC],
-              'desc' => ['authors.firstname' => SORT_DESC],
-              'label' => 'Author First Name'
-            ]
+            'id',
+            'name',
+            'preview',
+            'date',
+            'author_fullname' => [
+              'asc' => ['authors.firstname' => SORT_ASC, 'authors.lastname' => SORT_ASC],
+              'desc' => ['authors.firstname' => SORT_DESC, 'authors.lastname' => SORT_DESC],
+              'label' => 'Author',
+              'default' => SORT_ASC
+            ],
           ]
         ]);
-
 
         $this->load($params);
 
@@ -80,21 +83,24 @@ class BookSearch extends Book
         }
 
         $query->andFilterWhere([
-            'id' => $this->id,
-            'date_create' => $this->date_create,
-            'date_update' => $this->date_update,
-            'date' => $this->date,
-            'author_id' => $this->author_id,
+          'id' => $this->id,
+          'date_create' => $this->date_create,
+          'date_update' => $this->date_update,
+          'date' => $this->date,
+          'author_id' => $this->author_id,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'preview', $this->preview]);
+          ->andFilterWhere(['like', 'preview', $this->preview]);
 
-        // filter by country name
-        $query->joinWith(['author' => function ($q) {
-            $q->where('authors.firstname LIKE "%' . $this->author_firstname . '%"');
-        }]);
-
+        //todo: need fix search by fullname with concat strings
+        $query->joinWith([
+          'author' => function ($q) {
+              $q->where('authors.firstname LIKE "%' . $this->author_fullname . '%" ' .
+                'OR authors.lastname LIKE "%' . $this->author_fullname . '%"'
+              );
+          }
+        ]);
 
         return $dataProvider;
     }

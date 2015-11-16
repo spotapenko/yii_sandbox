@@ -27,12 +27,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'id',
         'name',
         'preview:image',
-        'author.firstname',
-/*        [
-          'attribute' => 'author_id',
-          'label' => 'author',
+        [
+          'attribute' => 'author_fullname',
+       //   'label' => 'author',
           'value' => function($model) { return $model->author->firstname  . " " . $model->author->lastname ;},
-        ],*/
+        ],
         [
           'attribute' => 'date',
           'format' => ['date', 'php:Y'],

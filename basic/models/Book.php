@@ -54,6 +54,7 @@ class Book extends ActiveRecord
             'preview' => Yii::t('app', 'Preview'),
             'date' => Yii::t('app', 'Date'),
             'author_id' => Yii::t('app', 'Author ID'),
+            'author_fullname' => Yii::t('app', 'Author'),
         ];
     }
 
@@ -65,7 +66,7 @@ class Book extends ActiveRecord
         return $this->hasOne(Author::className(), ['id' => 'author_id']);
     }
 
-    public function  getAuthorFirstName() {
-        return $this->author->firstname;
+    public function  getAuthorFullname() {
+        return $this->author->fullname;
     }
 }

@@ -57,6 +57,8 @@ class AuthorSearch extends Author
         $dataProvider->setSort([
           'attributes' => [
             'id',
+            'firstname',
+            'lastname',
             'fullname' => [
               'asc' => ['firstname' => SORT_ASC, 'lastname' => SORT_ASC],
               'desc' => ['firstname' => SORT_DESC, 'lastname' => SORT_DESC],
