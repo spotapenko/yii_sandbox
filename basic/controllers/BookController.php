@@ -1,7 +1,7 @@
 <?php
 
 namespace app\controllers;
-
+//todo remove unused methods
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use app\models\BookSearch;
 use app\models\BookForm;
 use app\models\Book;
+use yii\web\UploadedFile;
 
 class BookController extends Controller
 {
@@ -107,7 +108,21 @@ class BookController extends Controller
 
     protected function processSaveModel(Book $model)
     {
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->preview = UploadedFile::getInstance($model, 'preview');
+
+            if (!$model->save()) {
+                return $this->render('update', [
+                  'model' => $model,
+                ]);
+            }
+
+            if (!$model->upload()) {
+                return $this->render('update', [
+                  'model' => $model,
+                ]);
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

@@ -11,16 +11,22 @@ use yii\jui\DatePicker;
 
 <div class="book-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+      'enableClientValidation' => false,
+      'options' => [
+        'enctype' => 'multipart/form-data',
+      ],
+    ]); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('A Title of the Book') ?>
 
-    <?= $form->field($model, 'preview')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'preview')->fileInput() ?>
 
     <?= $form->field($model, 'date')->widget(DatePicker::classname(), [
         'dateFormat' => 'yyyy-MM-dd',
     ]) ?>
 
+    <?php //todo need modify author field ?>
     <?= $form->field($model, 'author_id')->textInput() ?>
 
     <div class="form-group">

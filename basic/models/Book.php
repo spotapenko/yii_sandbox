@@ -37,7 +37,8 @@ class Book extends ActiveRecord
             [['name', 'date_create', 'date_update', 'date'], 'required'],
             [['date_create', 'date_update', 'date'], 'safe'],
             [['author_id'], 'integer'],
-            [['name', 'preview'], 'string', 'max' => 255]
+            [['name'], 'string', 'max' => 255],
+            ['preview', 'file'],
         ];
     }
 
@@ -56,6 +57,30 @@ class Book extends ActiveRecord
             'author_id' => Yii::t('app', 'Author ID'),
             'author_fullname' => Yii::t('app', 'Author'),
         ];
+    }
+
+    public function behaviors()
+    {
+        return [
+          [
+            'class' => '\yiidreamteam\upload\FileUploadBehavior',
+            'attribute' => 'preview',
+            'filePath' => '@webroot/uploads/[[pk]]',
+            'fileUrl' => '/uploads/[[pk]]',
+          ],
+        ];
+    }
+
+    public function upload()
+    {
+        if ($this->validate()) {
+
+            $this->preview->saveAs('uploads/' . $this->preview->baseName . '.' . $this->preview->extension);
+            return true;
+        } else {
+            xdebug_var_dump($this->preview);
+            return false;
+        }
     }
 
     /**
