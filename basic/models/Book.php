@@ -48,7 +48,7 @@ class Book extends ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'Name'),
+            'name' => Yii::t('app', 'Title'),
             'date_create' => Yii::t('app', 'Date Create'),
             'date_update' => Yii::t('app', 'Date Update'),
             'preview' => Yii::t('app', 'Preview'),

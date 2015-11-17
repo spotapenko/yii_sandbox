@@ -13,6 +13,8 @@ use app\models\Book;
 class BookSearch extends Book
 {
     public $author_fullname;
+    public $date_from;
+    public $date_to;
 
     /**
      * @inheritdoc
@@ -21,7 +23,7 @@ class BookSearch extends Book
     {
         return [
           [['author_id'], 'integer'],
-          [['name', 'date', 'author_fullname'], 'safe'],
+          [['name', 'date_from', 'date_to', 'author_fullname'], 'safe'],
         ];
     }
 
@@ -92,6 +94,9 @@ class BookSearch extends Book
 
         $query->andFilterWhere(['like', 'name', $this->name])
           ->andFilterWhere(['like', 'preview', $this->preview]);
+
+        $query->andFilterWhere(['>=', 'date', $this->date_from]);
+        $query->andFilterWhere(['<=', 'date', $this->date_to]);
 
         //todo: need fix search by fullname with concat strings
         $query->joinWith([
