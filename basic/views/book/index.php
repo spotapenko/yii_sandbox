@@ -25,20 +25,18 @@ $this->params['breadcrumbs'][] = $this->title;
       'columns' => [
         'id',
         'name',
-      //  'preview',
         [
           'attribute' => 'preview',
           'format' => 'html',
-          'value' => function ($data) {
-              return Html::img(Yii::getAlias('@web').'/uploads/'. $data['preview'],
-                ['width' => '120px']);
+          'value' => function ($model) {
+              return
+                Html::img(Yii::getAlias('@web') . $model->getThumbFileUrl('preview', 'thumb'),
+                []);
+                 // .
+// Html::img(Yii::getAlias('@web') . $model->getImageFileUrl('preview'),
+//                ['width' => '400px']);
           },
         ],
-  /*      [
-          'attribute' => 'preview',
-          'format' => 'image',
-          'value' => function($model) { return BaseUrl::base().'/uploads/'.$model->preview ;},
-        ],*/
         [
           'attribute' => 'author_fullname',
           'value' => function($model) { return $model->author->firstname  . " " . $model->author->lastname ;},

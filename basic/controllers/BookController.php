@@ -109,20 +109,11 @@ class BookController extends Controller
     protected function processSaveModel(Book $model)
     {
         if ($model->load(Yii::$app->request->post())) {
-            $model->preview = UploadedFile::getInstance($model, 'preview');
-
             if (!$model->save()) {
                 return $this->render('update', [
                   'model' => $model,
                 ]);
             }
-
-            if (!$model->upload()) {
-                return $this->render('update', [
-                  'model' => $model,
-                ]);
-            }
-
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

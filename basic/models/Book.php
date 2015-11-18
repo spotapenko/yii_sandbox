@@ -38,7 +38,7 @@ class Book extends ActiveRecord
             [['date_create', 'date_update', 'date'], 'safe'],
             [['author_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            ['preview', 'file'],
+            ['preview', 'file', 'extensions' => 'jpeg, gif, png, JPG, GIF, PNG'],
         ];
     }
 
@@ -63,24 +63,17 @@ class Book extends ActiveRecord
     {
         return [
           [
-            'class' => '\yiidreamteam\upload\FileUploadBehavior',
+            'class' => '\yiidreamteam\upload\ImageUploadBehavior',
             'attribute' => 'preview',
-            'filePath' => '@webroot/uploads/[[pk]]',
-            'fileUrl' => '/uploads/[[pk]]',
+            'thumbs' => [
+              'thumb' => ['width' => 150, 'height' => 100],
+            ],
+            'filePath' => '@webroot/uploads/[[pk]].[[extension]]',
+            'fileUrl' => '/uploads/[[pk]].[[extension]]',
+            'thumbPath' => '@webroot/uploads/[[profile]]_[[pk]].[[extension]]',
+            'thumbUrl' => '/uploads/[[profile]]_[[pk]].[[extension]]',
           ],
         ];
-    }
-
-    public function upload()
-    {
-        if ($this->validate()) {
-
-            $this->preview->saveAs('uploads/' . $this->preview->baseName . '.' . $this->preview->extension);
-            return true;
-        } else {
-            xdebug_var_dump($this->preview);
-            return false;
-        }
     }
 
     /**
