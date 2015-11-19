@@ -45,6 +45,15 @@ class BookSearch extends Book
      */
     public function search($params)
     {
+        if (!isset($params["BookSearch"])) {
+            if (isset(Yii::$app->session["book_search"])){
+                $params["BookSearch"]=Yii::$app->session["book_search"];
+            }
+        }
+        else{
+            Yii::$app->session["book_search"]=$params["BookSearch"];
+        }
+
         $query = Book::find();
 
         $dataProvider = new ActiveDataProvider([

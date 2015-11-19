@@ -48,8 +48,16 @@ class BookController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+
+        if(Yii::$app->request->isAjax) {
+            return $this->renderAjax('_form', [
+              'model' => $model
+            ]);
+        }
+
         return $this->render('view', [
-          'model' => $this->findModel($id),
+          'model' => $model,
         ]);
     }
 
@@ -114,7 +122,7 @@ class BookController extends Controller
                   'model' => $model,
                 ]);
             }
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
               'model' => $model,
