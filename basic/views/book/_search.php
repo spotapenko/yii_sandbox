@@ -29,7 +29,7 @@ use yii\jui\DatePicker;
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
+        <?= Html::a(Yii::t('app', 'Reset'), '#', ['class' => 'btn btn-default btn-reset']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
