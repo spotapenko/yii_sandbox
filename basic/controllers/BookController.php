@@ -1,16 +1,12 @@
 <?php
 
 namespace app\controllers;
-//todo remove unused methods
 use Yii;
-use yii\filters\AccessControl;
+use yii\web\NotFoundHttpException;
 use yii\web\Controller;
-use yii\data\Pagination;
 use yii\filters\VerbFilter;
 use app\models\BookSearch;
-use app\models\BookForm;
 use app\models\Book;
-use yii\web\UploadedFile;
 
 class BookController extends Controller
 {
@@ -51,7 +47,7 @@ class BookController extends Controller
         $model = $this->findModel($id);
 
         if(Yii::$app->request->isAjax) {
-            return $this->renderAjax('_form', [
+            return $this->renderAjax('ajax_view', [
               'model' => $model
             ]);
         }
