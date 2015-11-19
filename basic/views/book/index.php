@@ -15,10 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Book'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
     <?= GridView::widget([
       'dataProvider' => $dataProvider,
       'columns' => [
@@ -67,6 +63,10 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
       ],
     ]); ?>
+
+    <p>
+        <?= Html::a(Yii::t('app', 'Create Book'), ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
 
     <!-- Image Preview Modal -->
     <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
