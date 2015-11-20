@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use yii\web\NotFoundHttpException;
 use yii\web\Controller;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use app\models\BookSearch;
 use app\models\Book;
@@ -22,6 +23,16 @@ class BookController extends Controller
     public function behaviors()
     {
         return [
+          'access' => [
+            'class' => AccessControl::className(),
+            'only' => null,
+            'rules' => [
+              [
+                'allow' => true,
+                'roles' => ['@'],
+              ],
+            ],
+          ],
             'verbs' => [
                 'class'   => VerbFilter::className(),
                 'actions' => [
