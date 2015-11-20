@@ -18,10 +18,12 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
+        'css/nivo-zoom.css',
         'css/site.css',
     ];
     public $js = [
       'js/book.js',
+      'js/jquery.nivo.zoom.pack.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
