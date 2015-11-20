@@ -9,11 +9,11 @@ use yii\db\ActiveRecord;
  * This is the model class for table "books".
  *
  * @property integer $id
- * @property string $name
- * @property string $date_create
- * @property string $date_update
- * @property string $preview
- * @property string $date
+ * @property string  $name
+ * @property string  $date_create
+ * @property string  $date_update
+ * @property string  $preview
+ * @property string  $date
  * @property integer $author_id
  *
  * @property Authors $author
@@ -38,7 +38,8 @@ class Book extends ActiveRecord
             [['date_create', 'date_update', 'date'], 'safe'],
             [['author_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            ['preview', 'file', 'extensions' => 'jpeg, gif, png, JPG, GIF, PNG'],
+            ['preview', 'file',
+             'extensions' => 'jpeg, gif, png, JPG, GIF, PNG'],
         ];
     }
 
@@ -48,31 +49,34 @@ class Book extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'Title'),
-            'date_create' => Yii::t('app', 'Date Create'),
-            'date_update' => Yii::t('app', 'Date Update'),
-            'preview' => Yii::t('app', 'Preview'),
-            'date' => Yii::t('app', 'Date'),
-            'author_id' => Yii::t('app', 'Author ID'),
+            'id'              => Yii::t('app', 'ID'),
+            'name'            => Yii::t('app', 'Title'),
+            'date_create'     => Yii::t('app', 'Date Create'),
+            'date_update'     => Yii::t('app', 'Date Update'),
+            'preview'         => Yii::t('app', 'Preview'),
+            'date'            => Yii::t('app', 'Date'),
+            'author_id'       => Yii::t('app', 'Author ID'),
             'author_fullname' => Yii::t('app', 'Author'),
         ];
     }
 
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         return [
-          [
-            'class' => '\yiidreamteam\upload\ImageUploadBehavior',
-            'attribute' => 'preview',
-            'thumbs' => [
-              'thumb' => ['width' => 150, 'height' => 100],
+            [
+                'class'     => '\yiidreamteam\upload\ImageUploadBehavior',
+                'attribute' => 'preview',
+                'thumbs'    => [
+                    'thumb' => ['width' => 150, 'height' => 100],
+                ],
+                'filePath'  => '@webroot/uploads/[[pk]].[[extension]]',
+                'fileUrl'   => '/uploads/[[pk]].[[extension]]',
+                'thumbPath' => '@webroot/uploads/[[profile]]_[[pk]].[[extension]]',
+                'thumbUrl'  => '/uploads/[[profile]]_[[pk]].[[extension]]',
             ],
-            'filePath' => '@webroot/uploads/[[pk]].[[extension]]',
-            'fileUrl' => '/uploads/[[pk]].[[extension]]',
-            'thumbPath' => '@webroot/uploads/[[profile]]_[[pk]].[[extension]]',
-            'thumbUrl' => '/uploads/[[profile]]_[[pk]].[[extension]]',
-          ],
         ];
     }
 
@@ -84,7 +88,11 @@ class Book extends ActiveRecord
         return $this->hasOne(Author::className(), ['id' => 'author_id']);
     }
 
-    public function  getAuthorFullname() {
+    /**
+     * @return mixed
+     */
+    public function  getAuthorFullname()
+    {
         return $this->author->fullname;
     }
 }

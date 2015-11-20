@@ -16,7 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <ul>
         <li><label>Name</label>: <?= Html::encode($model->name) ?></li>
         <li><label>Email</label>: <?= Html::encode($model->email) ?></li>
-        <li><label>Author Id</label>: <?= Html::encode($model->author_id) ?></li>
+        <li><label>Author Id</label>: <?= Html::encode($model->author_id) ?>
+        </li>
     </ul>
 
     <code><?= __FILE__ ?></code>

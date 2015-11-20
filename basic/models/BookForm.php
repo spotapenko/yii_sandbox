@@ -11,16 +11,37 @@ use yii\web\UploadedFile;
  */
 class BookForm extends Model
 {
+    /**
+     * @var
+     */
     public $id;
+    /**
+     * @var
+     */
     public $name;
+    /**
+     * @var
+     */
     public $email;
+    /**
+     * @var
+     */
     public $date_create;
+    /**
+     * @var
+     */
     public $date_update;
     /**
      * @var UploadedFile
      */
     public $preview;
+    /**
+     * @var
+     */
     public $date;
+    /**
+     * @var
+     */
     public $author_id;
 
     /**
@@ -33,7 +54,8 @@ class BookForm extends Model
             [['name', 'email', 'author_id'], 'required'],
             // email has to be a valid email address
             ['email', 'email'],
-            [['preview'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
+            [['preview'], 'file', 'skipOnEmpty' => false,
+             'extensions'                       => 'png, jpg'],
         ];
     }
 }
