@@ -40,16 +40,6 @@ AppAsset::register($this);
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Books', 'url' => ['/book/index']],
             ['label' => 'Author', 'url' => ['/author/index']],
-<<<<<<< HEAD
-=======
-          Yii::$app->user->isGuest ?
-            ['label' => 'Login', 'url' => ['/site/login']] :
-            [
-              'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-              'url' => ['/site/logout'],
-              'linkOptions' => ['data-method' => 'post']
-            ],
->>>>>>> develop
         ],
     ]);
     NavBar::end();

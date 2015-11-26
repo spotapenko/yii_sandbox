@@ -24,7 +24,6 @@ use yii\jui\DatePicker;
         <div class="col-md-3">
             <?php echo $form->field($model, 'author_fullname')->dropDownList(
                 ArrayHelper::map(Author::find()->all(), 'id', 'fullname'),
-<<<<<<< HEAD
                 ['prompt' => 'Choose...']
             ) ?>
         </div>
@@ -35,39 +34,18 @@ use yii\jui\DatePicker;
 
     <div class="form-group row">
         <div class="col-md-3">
-=======
-                ['prompt' => $model->getAttributeLabel('author_fullname')]
-            )->label(false) ?>
-        </div>
-        <div class="col-md-3">
-            <?php echo $form->field($model, 'name', [
-              'inputOptions' => [
-                'placeholder' => $model->getAttributeLabel('name'),
-              ],
-            ])->label(false);
-            ?>
-
-        </div>
-    </div>
-    <div class="form-inline">
-    <div class="form-group">
->>>>>>> develop
             <?php echo $form->field($model, 'date_from')->widget(
                 DatePicker::classname(), [
                 'dateFormat' => 'yyyy-MM-dd',
             ]
             ) ?>
-<<<<<<< HEAD
         </div>
         <div class="col-md-3">
-=======
->>>>>>> develop
             <?php echo $form->field($model, 'date_to')->widget(
                 DatePicker::classname(), [
                 'dateFormat' => 'yyyy-MM-dd',
             ]
             ) ?>
-<<<<<<< HEAD
         </div>
 
         <div class="right" style="margin-top:20px; float:right;">
@@ -80,18 +58,6 @@ use yii\jui\DatePicker;
             ) ?>
         </div>
 
-=======
-    </div>
-        <div class="right" style="float:right;">
-            <?= Html::submitButton(
-              Yii::t('app', 'Search'), ['class' => 'btn btn-primary']
-            ) ?>
-            <?= Html::a(
-              Yii::t('app', 'Reset'), '#',
-              ['class' => 'btn btn-default btn-reset']
-            ) ?>
-        </div>
->>>>>>> develop
     </div>
 
     <?php ActiveForm::end(); ?>

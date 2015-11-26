@@ -6,11 +6,6 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
-<<<<<<< HEAD
-=======
-define('AUTHORS_LIST_PAGE_SIZE', 1);
-
->>>>>>> develop
 /**
  * BookSearch represents the model behind the search form about `app\models\Book`.
  */
@@ -52,10 +47,6 @@ class BookSearch extends Book
      */
     public function search($params)
     {
-<<<<<<< HEAD
-=======
-       // book search params from session
->>>>>>> develop
         if (!isset($params["BookSearch"])) {
             if (isset(Yii::$app->session["book_search"])) {
                 $params["BookSearch"] = Yii::$app->session["book_search"];
@@ -64,30 +55,11 @@ class BookSearch extends Book
             Yii::$app->session["book_search"] = $params["BookSearch"];
         }
 
-<<<<<<< HEAD
-=======
-        // paginator params from session
-        if (!isset($params["page"])) {
-            if (isset(Yii::$app->session["book_list_page"])) {
-                $params["page"] = Yii::$app->session["book_list_page"];
-            }
-        } else {
-            Yii::$app->session["book_list_page"] = $params["page"];
-        }
-
->>>>>>> develop
         $query = Book::find();
 
         $dataProvider = new ActiveDataProvider(
             [
                 'query' => $query,
-<<<<<<< HEAD
-=======
-                'pagination' => [
-                    'pageSize' => AUTHORS_LIST_PAGE_SIZE,
-                    'page' => isset($params['page']) ? $params['page'] - 1 : 0,// The zero-based current page number
-                ],
->>>>>>> develop
             ]
         );
 
