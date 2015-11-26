@@ -29,6 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             Html::img(
                                 Yii::getAlias('@web') . $model->getThumbFileUrl(
                                     'preview', 'thumb'
+<<<<<<< HEAD
                                 ),
                                 [
                                     'data' => ['url' => Yii::getAlias('@web')
@@ -38,6 +39,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         );
                     },
                     'contentOptions' => ['data-url' => 'data111']
+=======
+                                ), []
+                            ), Yii::getAlias('@web') . $model->getThumbFileUrl(
+                            'preview', 'big'
+                          ),
+                          ['class' => 'nivoZoom']
+                        );
+                    },
+>>>>>>> develop
                 ],
                 [
                     'attribute' => 'author_fullname',
@@ -87,6 +97,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ) ?>
     </p>
 
+<<<<<<< HEAD
     <!-- Image Preview Modal -->
     <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog"
          aria-labelledby="myModalLabel" aria-hidden="true">
@@ -110,6 +121,8 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
     </div>
+=======
+>>>>>>> develop
     <!-- Book View Modal -->
     <div class="modal fade" id="viewmodal" tabindex="-1" role="dialog"
          aria-labelledby="myModalLabel" aria-hidden="true">

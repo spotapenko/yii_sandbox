@@ -24,5 +24,5 @@ $this->title = 'My Yii Application';
     lastname,  / фамилия автора
 
     в итоге страница управления книгами должна выглядеть так: http://dl.dropbox.com/u/14927161/Selection_214.png
-    </pre>
+</pre>
 </div>

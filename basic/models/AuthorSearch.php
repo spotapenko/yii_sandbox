@@ -47,6 +47,12 @@ class AuthorSearch extends Author
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+<<<<<<< HEAD
+=======
+            'pagination' => [
+                'pageSize' => 5,
+            ],
+>>>>>>> develop
         ]);
 
         /**

@@ -1,5 +1,6 @@
 $(function () {
     initModalBookView();
+<<<<<<< HEAD
     initModalImageView();
     initBookSearchReset();
 
@@ -13,6 +14,13 @@ function initModalImageView() {
     });
 }
 
+=======
+    initBookSearchReset();
+    initImageZoom();
+
+});
+
+>>>>>>> develop
 function initModalBookView() {
     $(document).on('click', '.get-item-view', function () {
         //if modal isn't open; open it and load content
@@ -28,4 +36,13 @@ function initBookSearchReset() {
         $('.book-search form').find('input:text, input:password, select, textarea').val('');
         $('.book-search form').find('input:radio, input:checkbox').prop('checked', false);
     });
+<<<<<<< HEAD
+=======
+}
+
+function initImageZoom() {
+    $(window).load(function() {
+        $('body').nivoZoom();
+    });
+>>>>>>> develop
 }

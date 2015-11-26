@@ -71,6 +71,10 @@ class Book extends ActiveRecord
                 'attribute' => 'preview',
                 'thumbs'    => [
                     'thumb' => ['width' => 150, 'height' => 100],
+<<<<<<< HEAD
+=======
+                    'big' => ['width' => 400, 'height' => 300],
+>>>>>>> develop
                 ],
                 'filePath'  => '@webroot/uploads/[[pk]].[[extension]]',
                 'fileUrl'   => '/uploads/[[pk]].[[extension]]',
